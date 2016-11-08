@@ -7,8 +7,10 @@ FROM paradrop/workshop
 
 # Install dependencies.  You can add additional packages here following the example.
 RUN apt-get update && apt-get install -y \
-    isc-dhcp-server 
-
+    isc-dhcp-server \ 
+    iptables \
+    privoxy \
+    dansguardian
 # Install files required by the chute.
 #
 # ADD <path_inside_repository> <path_inside_container>
