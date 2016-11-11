@@ -1,16 +1,10 @@
 #!/bin/bash
 
-service isc-dhcp-server start
-# Redirect HTTP traffic to the proxy.
-#iptables -A PREROUTING -t nat -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
-#iptables -A PREROUTING -t nat -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
-
-# Required for forwarding everything else (e.g. DNS).
+# Required for forwarding everything so that the clients connected to the AP on this chute have internet connectivity
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
-# Start the proxy.
-service privoxy force-reload
-service dansguardian start
+# Start the DHCP server
+service isc-dhcp-server start
 
 while true; do
     sleep 300
